@@ -1,0 +1,12 @@
+P2Flux Checkout - licence
+
+Copyright (c) 2026 P2Flux
+
+You may download this checkout page and serve it, unmodified, from your own servers to take payments
+through P2Flux. Your own config.js and logo file are not modifications. You may not modify, redistribute
+as your own product, or use the page with any payment service other than P2Flux.
+
+The page is provided "as is", without warranty of any kind. In no event shall P2Flux be liable for any
+claim, damages or other liability arising from its use.
+
+Fonts: IBM Plex Mono, SIL Open Font License 1.1 (fonts/IBMPlexMono-LICENSE-OFL.txt in each release).
