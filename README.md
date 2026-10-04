@@ -89,16 +89,27 @@ Checkout links have the form `<your checkout address>/#/<pay|subscribe|cancel|re
 - **Laravel** (`p2flux/laravel` 0.3+): `P2FLUX_CHECKOUT_URL=https://pay.yourcompany.com`.
 - **WooCommerce plugin**: the filter `p2flux_wc_checkout_url`.
 
+## Payment links
+
+The same page creates and serves payment links: `<your checkout>/#/new` is a form for you (a link,
+its QR code and your private overview link), `#/link/<link>` is what your buyer opens, and
+`#/links/<manage>` is your overview - who paid, every payment, every subscriber. Links are created
+and collected by the P2Flux API (https://p2flux.com/docs/payment-links.html); with a wallet list,
+this page only creates and opens links that pay your wallets.
+
 ## What the wallet list protects, and what it does not
 
 - Payments and subscriptions: the receiving wallet must be in your list.
 - Cancellations: the subscription being cancelled must be to a wallet in your list.
-- Not covered: the screen that restores a subscription's allowance (`#/approve/...`). It names no
-  wallet yet; it only lets the buyer re-approve the P2Flux recurring contract for an existing
-  subscription they signed.
-- Refunds: only the wallet that SENDS the refund is checked against your list. Where the refund goes
-  (the original payer) and how much may be refunded come from the P2Flux API, which reads them from the
-  original payment on chain. Check both in your wallet before you confirm a refund.
+- Restoring a subscription's allowance (`#/approve/...`): the subscription must be to a wallet in your
+  list (sessions created since checkout 1.1; older ones are refused when you have a list).
+- Payment links (`#/link/...`, `#/new`): the page opens and creates only links that pay a wallet in
+  your list, and holds every answer about a link to the terms written inside the link itself.
+- Refunds: the wallet that sends the refund must be in your list. Where the refund goes and how much
+  may be refunded: the page reads the receipt of the original payment the refund names, from the
+  contracts it has pinned, and refuses a refund to anyone but that payment's payer, or above what was
+  paid. Which payment is being refunded is still the P2Flux API's statement: check the payer and
+  amount in your wallet against the order.
 - Contracts, network and amounts: always checked, with or without a wallet list - the contracts against
   the published P2Flux contracts compiled into the page, the amount shown against the amount signed.
 - Without a wallet list, any recipient a payment names is accepted (as on pay.p2flux.com).
