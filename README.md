@@ -17,6 +17,10 @@ code, no database.
   P2Flux API were compromised; see below for what they do not cover.
 - **Still provided by P2Flux:** the API that creates and confirms payments (`api.p2flux.com`) and,
   for buyers who pay the network fee in USDC, the transaction that carries their payment.
+- **Sanctions screening** happens at the P2Flux API, wherever the page runs: a wallet on the U.S. OFAC
+  list (payer or receiving wallet) is refused before anything is submitted. Since 1.2.0 the page also
+  asks right after the buyer connects, so the buyer sees "This wallet cannot be used with P2Flux. No
+  transaction was submitted." before any wallet prompt.
 
 ## Install
 
